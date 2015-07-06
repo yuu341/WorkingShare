@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TicketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="ParentMenuId" Type="int" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isVisible" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="isConfirm" Type="bit" Nullable="false" />
+          <Property Name="isLock" Type="bit" Nullable="false" />
+          <Property Name="LockCount" Type="int" Nullable="false" />
+          <Property Name="LockTime" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mUserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CanSelect" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjectStateCode" Type="int" Nullable="false" />
+          <Property Name="isDelete" Type="bit" Nullable="false" />
+          <Property Name="DeleteTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tProjectMember">
+          <Key>
+            <PropertyRef Name="ProjectMemberId" />
+          </Key>
+          <Property Name="ProjectMemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tTicket">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="SendUserId" Type="int" Nullable="false" />
+          <Property Name="SendUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SendTime" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TicketType" Type="int" Nullable="false" />
+          <Property Name="AskUserId" Type="int" Nullable="false" />
+          <Property Name="AskUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AskTime" Type="datetime" />
+          <Property Name="IsComplete" Type="bit" Nullable="false" />
+          <Property Name="CompleteTime" Type="datetime" />
+          <Property Name="Point" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="DeleteTime" Type="datetime" />
+          <Property Name="DeadLine" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_mMenu_mMenu">
+          <End Role="mMenu" Type="Self.mMenu" Multiplicity="0..1" />
+          <End Role="mMenu1" Type="Self.mMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mMenu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="mMenu1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProjectMember_mUserType">
+          <End Role="mUserType" Type="Self.mUserType" Multiplicity="1" />
+          <End Role="tProjectMember" Type="Self.tProjectMember" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="mUserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="tProjectMember">
+              <PropertyRef Name="ProjectMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProjectMember_tProject">
+          <End Role="mUser" Type="Self.mUser" Multiplicity="1" />
+          <End Role="tProjectMember" Type="Self.tProjectMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tProjectMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTicket_tProject">
+          <End Role="tProject" Type="Self.tProject" Multiplicity="1" />
+          <End Role="tTicket" Type="Self.tTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tTicket">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TicketModelStoreContainer">
+          <EntitySet Name="mMenu" EntityType="Self.mMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mUser" EntityType="Self.mUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mUserType" EntityType="Self.mUserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tProject" EntityType="Self.tProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tProjectMember" EntityType="Self.tProjectMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tTicket" EntityType="Self.tTicket" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_mMenu_mMenu" Association="Self.FK_mMenu_mMenu">
+            <End Role="mMenu" EntitySet="mMenu" />
+            <End Role="mMenu1" EntitySet="mMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProjectMember_mUserType" Association="Self.FK_tProjectMember_mUserType">
+            <End Role="mUserType" EntitySet="mUserType" />
+            <End Role="tProjectMember" EntitySet="tProjectMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProjectMember_tProject" Association="Self.FK_tProjectMember_tProject">
+            <End Role="mUser" EntitySet="mUser" />
+            <End Role="tProjectMember" EntitySet="tProjectMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTicket_tProject" Association="Self.FK_tTicket_tProject">
+            <End Role="tProject" EntitySet="tProject" />
+            <End Role="tTicket" EntitySet="tTicket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TicketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TicketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mMenu" EntityType="TicketModel.mMenu" />
+          <EntitySet Name="mUser" EntityType="TicketModel.mUser" />
+          <EntitySet Name="mUserType" EntityType="TicketModel.mUserType" />
+          <EntitySet Name="tProject" EntityType="TicketModel.tProject" />
+          <EntitySet Name="tProjectMember" EntityType="TicketModel.tProjectMember" />
+          <EntitySet Name="tTicket" EntityType="TicketModel.tTicket" />
+          <AssociationSet Name="FK_mMenu_mMenu" Association="TicketModel.FK_mMenu_mMenu">
+            <End Role="mMenu" EntitySet="mMenu" />
+            <End Role="mMenu1" EntitySet="mMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProjectMember_tProject" Association="TicketModel.FK_tProjectMember_tProject">
+            <End Role="mUser" EntitySet="mUser" />
+            <End Role="tProjectMember" EntitySet="tProjectMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProjectMember_mUserType" Association="TicketModel.FK_tProjectMember_mUserType">
+            <End Role="mUserType" EntitySet="mUserType" />
+            <End Role="tProjectMember" EntitySet="tProjectMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tTicket_tProject" Association="TicketModel.FK_tTicket_tProject">
+            <End Role="tProject" EntitySet="tProject" />
+            <End Role="tTicket" EntitySet="tTicket" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="mMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="ParentMenuId" Type="Int32" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isVisible" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="mMenu1" Relationship="TicketModel.FK_mMenu_mMenu" FromRole="mMenu" ToRole="mMenu1" />
+          <NavigationProperty Name="mMenu2" Relationship="TicketModel.FK_mMenu_mMenu" FromRole="mMenu1" ToRole="mMenu" />
+        </EntityType>
+        <EntityType Name="mUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="isConfirm" Type="Boolean" Nullable="false" />
+          <Property Name="isLock" Type="Boolean" Nullable="false" />
+          <Property Name="LockCount" Type="Int32" Nullable="false" />
+          <Property Name="LockTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tProjectMember" Relationship="TicketModel.FK_tProjectMember_tProject" FromRole="mUser" ToRole="tProjectMember" />
+        </EntityType>
+        <EntityType Name="mUserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CanSelect" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tProjectMember" Relationship="TicketModel.FK_tProjectMember_mUserType" FromRole="mUserType" ToRole="tProjectMember" />
+        </EntityType>
+        <EntityType Name="tProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectStateCode" Type="Int32" Nullable="false" />
+          <Property Name="isDelete" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tTicket" Relationship="TicketModel.FK_tTicket_tProject" FromRole="tProject" ToRole="tTicket" />
+        </EntityType>
+        <EntityType Name="tProjectMember">
+          <Key>
+            <PropertyRef Name="ProjectMemberId" />
+          </Key>
+          <Property Name="ProjectMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mUser" Relationship="TicketModel.FK_tProjectMember_tProject" FromRole="tProjectMember" ToRole="mUser" />
+          <NavigationProperty Name="mUserType" Relationship="TicketModel.FK_tProjectMember_mUserType" FromRole="tProjectMember" ToRole="mUserType" />
+        </EntityType>
+        <EntityType Name="tTicket">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="SendUserId" Type="Int32" Nullable="false" />
+          <Property Name="SendUserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SendTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TicketType" Type="Int32" Nullable="false" />
+          <Property Name="AskUserId" Type="Int32" Nullable="false" />
+          <Property Name="AskUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AskTime" Type="DateTime" Precision="3" />
+          <Property Name="IsComplete" Type="Boolean" Nullable="false" />
+          <Property Name="CompleteTime" Type="DateTime" Precision="3" />
+          <Property Name="Point" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <Property Name="DeadLine" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tProject" Relationship="TicketModel.FK_tTicket_tProject" FromRole="tTicket" ToRole="tProject" />
+        </EntityType>
+        <Association Name="FK_mMenu_mMenu">
+          <End Type="TicketModel.mMenu" Role="mMenu" Multiplicity="0..1" />
+          <End Type="TicketModel.mMenu" Role="mMenu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mMenu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="mMenu1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProjectMember_tProject">
+          <End Type="TicketModel.mUser" Role="mUser" Multiplicity="1" />
+          <End Type="TicketModel.tProjectMember" Role="tProjectMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tProjectMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProjectMember_mUserType">
+          <End Type="TicketModel.mUserType" Role="mUserType" Multiplicity="1" />
+          <End Type="TicketModel.tProjectMember" Role="tProjectMember" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="mUserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="tProjectMember">
+              <PropertyRef Name="ProjectMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tTicket_tProject">
+          <End Type="TicketModel.tProject" Role="tProject" Multiplicity="1" />
+          <End Type="TicketModel.tTicket" Role="tTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tTicket">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TicketModelStoreContainer" CdmEntityContainer="TicketEntities">
+          <EntitySetMapping Name="mMenu">
+            <EntityTypeMapping TypeName="TicketModel.mMenu">
+              <MappingFragment StoreEntitySet="mMenu">
+                <ScalarProperty Name="isVisible" ColumnName="isVisible" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mUser">
+            <EntityTypeMapping TypeName="TicketModel.mUser">
+              <MappingFragment StoreEntitySet="mUser">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="LockTime" ColumnName="LockTime" />
+                <ScalarProperty Name="LockCount" ColumnName="LockCount" />
+                <ScalarProperty Name="isLock" ColumnName="isLock" />
+                <ScalarProperty Name="isConfirm" ColumnName="isConfirm" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mUserType">
+            <EntityTypeMapping TypeName="TicketModel.mUserType">
+              <MappingFragment StoreEntitySet="mUserType">
+                <ScalarProperty Name="CanSelect" ColumnName="CanSelect" />
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tProject">
+            <EntityTypeMapping TypeName="TicketModel.tProject">
+              <MappingFragment StoreEntitySet="tProject">
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+                <ScalarProperty Name="ProjectStateCode" ColumnName="ProjectStateCode" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tProjectMember">
+            <EntityTypeMapping TypeName="TicketModel.tProjectMember">
+              <MappingFragment StoreEntitySet="tProjectMember">
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectMemberId" ColumnName="ProjectMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tTicket">
+            <EntityTypeMapping TypeName="TicketModel.tTicket">
+              <MappingFragment StoreEntitySet="tTicket">
+                <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="CompleteTime" ColumnName="CompleteTime" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="AskTime" ColumnName="AskTime" />
+                <ScalarProperty Name="AskUserName" ColumnName="AskUserName" />
+                <ScalarProperty Name="AskUserId" ColumnName="AskUserId" />
+                <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SendTime" ColumnName="SendTime" />
+                <ScalarProperty Name="SendUserName" ColumnName="SendUserName" />
+                <ScalarProperty Name="SendUserId" ColumnName="SendUserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
