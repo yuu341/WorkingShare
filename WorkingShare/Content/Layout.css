@@ -1,0 +1,14 @@
+﻿.header--layout {
+  height: 100px;
+  background-color: pink !important;
+}
+.footer--layout {
+  height: 100px;
+  background-color: pink !important;
+}
+.body--layout {
+  padding: 0;
+  margin: 0;
+  background-color: green !important;
+}
+/*# sourceMappingURL=Layout.css.map */

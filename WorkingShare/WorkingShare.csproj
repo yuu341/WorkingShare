@@ -263,6 +263,13 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <None Include="Content\Foundation.less" />
+    <Content Include="Content\Layout.css">
+      <DependentUpon>Layout.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Layout.min.css">
+      <DependentUpon>Layout.css</DependentUpon>
+    </Content>
     <Content Include="Content\Menu.css">
       <DependentUpon>Menu.less</DependentUpon>
     </Content>
@@ -1094,6 +1101,11 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Content\Layout.less" />
+    <Content Include="Content\Object.less" />
+    <Content Include="Content\Layout.css.map">
+      <DependentUpon>Layout.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
@@ -1101,6 +1113,7 @@
     <Content Include="Scripts\knockout\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout\knockout.validation.debug.js" />
     <Content Include="Scripts\knockout\knockout.validation.js" />
+    <Content Include="Scripts\menu\menu.js" />
     <Content Include="Scripts\modernizr\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond\respond.js" />
     <Content Include="Scripts\respond\respond.min.js" />
@@ -1195,17 +1208,17 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51524</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:51524/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-          <servers defaultServer="OwinHost">
+          <servers defaultServer="">
             <server name="OwinHost" exePath="{solutiondir}\packages\OwinHost.3.0.1\tools\OwinHost.exe" cmdArgs="-u {url}" url="http://localhost:12345/" workingDir="{projectdir}" />
           </servers>
         </WebProjectProperties>
