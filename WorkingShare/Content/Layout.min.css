@@ -1,1 +1,1 @@
-﻿.header--layout{height:100px;background-color:#ffc0cb !important}.footer--layout{height:100px;background-color:#ffc0cb !important}.body--layout{padding:0;margin:0;background-color:green !important}
+﻿.header--layout{height:100px;background-color:#ffc0cb !important}.footer--layout{height:100px;background-color:#ffc0cb !important}.body--layout{padding:0;margin:0;background-color:green !important}.layout--line>div{float:left}.layout--line:after{clear:both}

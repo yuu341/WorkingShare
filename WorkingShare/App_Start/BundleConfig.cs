@@ -18,8 +18,25 @@ namespace WorkingShare
                 "~/Scripts/jquery/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-{version}.js",
-                "~/Scripts/knockout.validation.js"));
+                "~/Scripts/knockout/knockout-{version}.js",
+                "~/Scripts/knockout/knockout.validation.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                "~/Scripts/angularjs/angular.js",
+                "~/Scripts/angularjs/angular-animate.js",
+                "~/Scripts/angularjs/angular-aria.js",
+                "~/Scripts/angularjs/angular-cookies.js",
+//                "~/Scripts/angularjs/angular-csp.css",
+                "~/Scripts/angularjs/angular-loader.js",
+                "~/Scripts/angularjs/angular-message-format.js",
+                "~/Scripts/angularjs/angular-messages.js",
+                "~/Scripts/angularjs/angular-mocks.js",
+                "~/Scripts/angularjs/angular-resource.js",
+                "~/Scripts/angularjs/angular-route.js",
+                "~/Scripts/angularjs/angular-sanitize.js",
+                "~/Scripts/angularjs/angular-scenario.js",
+                "~/Scripts/angularjs/angular-touch.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/sammy-{version}.js",

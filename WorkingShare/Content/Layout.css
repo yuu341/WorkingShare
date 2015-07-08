@@ -11,4 +11,10 @@
   margin: 0;
   background-color: green !important;
 }
+.layout--line > div {
+  float: left;
+}
+.layout--line:after {
+  clear: both;
+}
 /*# sourceMappingURL=Layout.css.map */

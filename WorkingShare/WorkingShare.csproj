@@ -276,6 +276,7 @@
     <Content Include="Content\Menu.min.css">
       <DependentUpon>Menu.css</DependentUpon>
     </Content>
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
     </Content>
