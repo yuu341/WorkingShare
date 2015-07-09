@@ -13,6 +13,9 @@
           <Property Name="ParentMenuId" Type="int" />
           <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortNo" Type="int" />
           <Property Name="isVisible" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="mUser">
@@ -192,6 +195,9 @@
           <Property Name="isVisible" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mMenu1" Relationship="TicketModel.FK_mMenu_mMenu" FromRole="mMenu" ToRole="mMenu1" />
           <NavigationProperty Name="mMenu2" Relationship="TicketModel.FK_mMenu_mMenu" FromRole="mMenu1" ToRole="mMenu" />
+          <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortNo" Type="Int32" />
         </EntityType>
         <EntityType Name="mUser">
           <Key>
@@ -322,6 +328,9 @@
           <EntitySetMapping Name="mMenu">
             <EntityTypeMapping TypeName="TicketModel.mMenu">
               <MappingFragment StoreEntitySet="mMenu">
+                <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
                 <ScalarProperty Name="isVisible" ColumnName="isVisible" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="MenuName" ColumnName="MenuName" />

@@ -11,7 +11,7 @@
   margin: 0;
   background-color: green !important;
 }
-.layout--line > div {
+.layout--line {
   float: left;
 }
 .layout--line:after {

@@ -24,6 +24,9 @@ namespace WorkingShare.Database
         public string MenuName { get; set; }
         public string Area { get; set; }
         public bool isVisible { get; set; }
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public Nullable<int> SortNo { get; set; }
     
         public virtual ICollection<mMenu> mMenu1 { get; set; }
         public virtual mMenu mMenu2 { get; set; }

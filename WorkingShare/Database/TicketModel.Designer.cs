@@ -1,4 +1,4 @@
-﻿// T4 コード生成がモデル 'c:\users\us25081090\documents\visual studio 2013\Projects\WorkingShare\WorkingShare\Database\TicketModel.edmx' に対して有効です。 
+﻿// T4 コード生成がモデル 'D:\workspace\WorkingShare\WorkingShare\Database\TicketModel.edmx' に対して有効です。 
 // レガシ コード生成を有効にするには、'コード生成方法' デザイナー
 // プロパティの値を 'レガシ ObjectContext' に変更します。このプロパティは、デザイナーでモデルが開かれている場合に [プロパティ] ウィンドウ
 // で使用できます。

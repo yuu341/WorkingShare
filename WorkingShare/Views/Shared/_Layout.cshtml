@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WorkingShare.Utility
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -10,7 +11,7 @@
     @Styles.Render("~/Content/UIParts/Menu")
         @Scripts.Render("~/bundles/modernizr")
 </head>
-<body ng-app class="body--layout">
+<body class="body--layout">
     <header class="header--layout">
         <p>WorkingShareへようこそ</p>
         <button class="btn button--layout--login">ログイン</button>
@@ -20,32 +21,9 @@
 
     <div class="layout--line">
         <div class="cssmenu">
-            <ul>
-                <li><a href='#'><span>Home</span></a></li>
-                <li class='active has-sub'>
-                    <a href='#'><span>Products</span></a>
-                    <ul>
-                        <li class='has-sub'>
-                            <a href='#'><span>Product 1</span></a>
-                            <ul>
-                                <li><a href='#'><span>Sub Product</span></a></li>
-                                <li class='last'><a href='#'><span>Sub Product</span></a></li>
-                            </ul>
-                        </li>
-                        <li class='has-sub'>
-                            <a href='#'><span>Product 2</span></a>
-                            <ul>
-                                <li><a href='#'><span>Sub Product</span></a></li>
-                                <li class='last'><a href='#'><span>Sub Product</span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href='#'><span>About</span></a></li>
-                <li class='last'><a href='#'><span>Contact</span></a></li>
-            </ul>
+            @Html.Partial("_MenuList", SystemCacheManager.MenuList.Where(p => p.ParentMenuId == null).OrderBy(p => p.SortNo))
         </div>
-        <div class="container body-content">
+        <div id="content-main" class="container body-content">
             @RenderBody()
             @RenderSection("SPAViews", required: false)
         </div>
@@ -56,8 +34,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/UIParts/Menu")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
 </body>
 </html>

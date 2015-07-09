@@ -208,6 +208,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\TicketList\Controllers\ListController.cs" />
+    <Compile Include="Areas\TicketList\Controllers\MySpaceController.cs" />
+    <Compile Include="Areas\TicketList\Controllers\TaskController.cs" />
     <Compile Include="Areas\TicketList\TicketListAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -222,6 +225,7 @@
     <Compile Include="Database\mUserType.cs">
       <DependentUpon>TicketModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\PartialClass\mMenu.cs" />
     <Compile Include="Database\TicketModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,12 +261,18 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\SystemCacheManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Areas\TicketList\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TicketList\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TicketList\Views\Task\Index.cshtml" />
+    <Content Include="Areas\TicketList\Views\List\Index.cshtml" />
+    <Content Include="Areas\TicketList\Views\MySpace\Index.cshtml" />
     <None Include="Content\Foundation.less" />
     <Content Include="Content\Layout.css">
       <DependentUpon>Layout.less</DependentUpon>
@@ -277,6 +287,12 @@
       <DependentUpon>Menu.css</DependentUpon>
     </Content>
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\Object.css">
+      <DependentUpon>Object.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Object.min.css">
+      <DependentUpon>Object.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
     </Content>
@@ -1107,6 +1123,9 @@
     <Content Include="Content\Layout.css.map">
       <DependentUpon>Layout.css</DependentUpon>
     </Content>
+    <Content Include="Content\Object.css.map">
+      <DependentUpon>Object.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery\jquery-1.10.2.min.js" />
@@ -1164,14 +1183,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Shared\_MenuList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\TicketList\Controllers\" />
     <Folder Include="Areas\TicketList\Models\" />
     <Folder Include="Areas\TicketList\Scripts\" />
-    <Folder Include="Areas\TicketList\Views\Shared\" />
-    <Folder Include="Database\PartialClass\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WorkingShare.Database.mMenu>
+<ul>
+    @foreach (var m in Model)
+    {
+        string option = "";
+        if (m.HasChild)
+        {
+
+            option += "has-sub";
+        }
+        if (m.IsActive)
+        {
+
+            option += " active";
+        }
+
+        <li class=@option>
+            @Ajax.ActionLink(@m.MenuName, @m.Action, @m.Controller, @m.Area , new AjaxOptions() { AllowCache = false, HttpMethod = "GET", UpdateTargetId = "content-main" })
+            @if (m.HasChild)
+            {
+                Html.RenderPartial("_MenuList", m.ChildMenu);
+            }
+        </li>
+    }
+</ul>
